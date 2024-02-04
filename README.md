@@ -1,1 +1,1 @@
-Teamtask API
+Teamtask App (Flutter + NestJS)
