@@ -1,33 +1,29 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:teamtask_app/features/onboarding/domain/onboarding.dart';
 import 'package:teamtask_app/features/onboarding/presentation/onboarding_content.dart';
+import 'package:teamtask_app/features/onboarding/presentation/onboarding_dot_indicator.dart';
+import 'package:teamtask_app/router/app_router.dart';
+import 'package:teamtask_app/shared/widgets/app_filled_button.dart';
+import 'package:teamtask_app/shared/widgets/app_text_button.dart';
 
-// OnBoarding content list
-final List<Onboarding> data = [
+const List<Onboarding> data = [
   Onboarding(
-    image: "assets/images/on-boarding/onboarding1.png",
-    title: "Title 01",
+    image: "assets/images/onboarding/onboarding-one.png",
+    title: "Your convenience in making a todo list",
     description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Here's a mobile platform that helps you create task or to list so that it can help you in every job easier and faster.",
   ),
   Onboarding(
-    image: "assets/images/on-boarding/onboarding2.png",
-    title: "Title 02",
+    image: "assets/images/onboarding/onboarding-two.png",
+    title: "Find the practicality in making your todo list",
     description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Easy-to-understand user interface  that makes you more comfortable when you want to create a task or to do list, TeamTask can also improve productivity",
   ),
   Onboarding(
-    image: "assets/images/on-boarding/onboarding3.png",
-    title: "Title 03",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  ),
-  Onboarding(
-    image: "assets/images/on-boarding/onboarding4.png",
-    title: "Title 04",
-    description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    image: "assets/images/onboarding/onboarding-three.png",
+    title: "Welcome to TeamTask",
   ),
 ];
 
@@ -41,11 +37,31 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late PageController _pageController;
+  int _pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+      ),
+    );
     _pageController = PageController(initialPage: 0);
+  }
+
+  void _handleOnNavigate() {
+    if (_pageIndex < data.length - 1) {
+      // Navigate to next page
+      _pageController.animateToPage(
+        _pageIndex + 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.decelerate,
+      );
+    } else {
+      context.router.push(AuthRoute(initial: 0));
+    }
   }
 
   @override
@@ -58,22 +74,65 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 20, right: 24, bottom: 32, left: 24),
           child: Column(
             children: [
-              // Carousel area
-              Expanded(
-                child: PageView.builder(
-                  itemCount: data.length,
-                  controller: _pageController,
-                  itemBuilder: (context, index) => OnboardingContent(
-                    title: data[index].title,
-                    description: data[index].description,
-                    image: data[index].image,
-                    isLast: index == data.length - 1,
+              if (_pageIndex < data.length - 1)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: AppTextButton(
+                    text: 'Skip',
+                    onPressed: () {
+                      _pageController.jumpToPage(data.length - 1);
+                    },
                   ),
                 ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: PageView.builder(
+                        itemCount: data.length,
+                        controller: _pageController,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _pageIndex = index;
+                          });
+                        },
+                        itemBuilder: (context, pageIndex) => OnboardingContent(
+                          data: Onboarding(
+                            title: data[pageIndex].title,
+                            description: data[pageIndex].description,
+                            image: data[pageIndex].image,
+                          ),
+                          isLast: pageIndex == data.length - 1,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Wrap(
+                        spacing: 6,
+                        children: [
+                          ...List.generate(
+                            data.length,
+                            (index) => OnboardingDotIndicator(
+                              isActive: index == _pageIndex,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AppFilledButton(
+                text: _pageIndex == data.length - 1 ? 'Sign me up' : 'Continue',
+                onPressed: _handleOnNavigate,
+                icon: _pageIndex == data.length - 1 ? Icons.email : null,
               ),
             ],
           ),

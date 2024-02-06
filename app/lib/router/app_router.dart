@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teamtask_app/features/auth/registration/presentation/auth_screen.dart';
 import 'package:teamtask_app/features/home/presentation/home_screen.dart';
 import 'package:teamtask_app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:teamtask_app/router/router_guards.dart';
@@ -17,6 +19,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: OnboardingRoute.page,
           guards: [OnboardingGuard(ref)],
+          // initial: true,
+        ),
+        AutoRoute(
+          page: AuthRoute.page,
           initial: true,
         ),
         AutoRoute(

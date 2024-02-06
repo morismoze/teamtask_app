@@ -31,7 +31,7 @@ Future<ThemeRepository> themeRepository(ThemeRepositoryRef ref) async {
 
 final appThemeData = ThemeData(
   colorScheme: ColorScheme.fromSeed(
-    seedColor: const Color(0xFF256BFD),
+    seedColor: const Color(0xFF24A19C),
   ),
   textTheme: GoogleFonts.barlowTextTheme(),
 );
@@ -39,7 +39,7 @@ final appThemeData = ThemeData(
 final appThemeDataDark = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
-    seedColor: const Color(0xFF256BFD),
+    seedColor: const Color(0xFF24A19C),
   ),
   textTheme: GoogleFonts.barlowTextTheme(),
 );

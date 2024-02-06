@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
-class Button extends StatelessWidget {
-  Button({
+class AppFilledButton extends StatelessWidget {
+  AppFilledButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -21,7 +21,7 @@ class Button extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all<Color>(
             Theme.of(context).colorScheme.primary),
         fixedSize: MaterialStateProperty.all(
-          const Size(double.infinity, 60),
+          const Size(double.infinity, 56),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -32,7 +32,11 @@ class Button extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (icon != null) Icon(icon),
+          if (icon != null)
+            Icon(
+              icon,
+              color: Colors.white,
+            ),
           const SizedBox(
             width: 8,
           ),

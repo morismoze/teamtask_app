@@ -1,11 +1,11 @@
 class Onboarding {
-  Onboarding({
+  const Onboarding({
     required this.image,
     required this.title,
-    required this.description,
+    this.description,
   });
 
   final String image;
   final String title;
-  final String description;
+  final String? description;
 }

@@ -15,6 +15,17 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AuthRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<AuthRouteArgs>(orElse: () => const AuthRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AuthScreen(
+          key: args.key,
+          initial: args.initial,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -28,6 +39,43 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AuthScreen]
+class AuthRoute extends PageRouteInfo<AuthRouteArgs> {
+  AuthRoute({
+    Key? key,
+    int initial = 0,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AuthRoute.name,
+          args: AuthRouteArgs(
+            key: key,
+            initial: initial,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AuthRoute';
+
+  static const PageInfo<AuthRouteArgs> page = PageInfo<AuthRouteArgs>(name);
+}
+
+class AuthRouteArgs {
+  const AuthRouteArgs({
+    this.key,
+    this.initial = 0,
+  });
+
+  final Key? key;
+
+  final int initial;
+
+  @override
+  String toString() {
+    return 'AuthRouteArgs{key: $key, initial: $initial}';
+  }
 }
 
 /// generated route for
