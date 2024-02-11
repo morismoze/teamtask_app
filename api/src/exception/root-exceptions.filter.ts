@@ -24,6 +24,7 @@ export class RootExceptionsFilter implements ExceptionFilter {
         exception.getResponse(),
         exception.getStatus(),
       );
+      return;
     }
 
     const responseBody: ApiResponse<null> = {

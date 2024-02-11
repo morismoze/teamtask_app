@@ -20,7 +20,7 @@ abstract class _$AppRouter extends RootStackRouter {
           routeData.argsAs<AuthRouteArgs>(orElse: () => const AuthRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: AuthScreen(
+        child: AuthPage(
           key: args.key,
           initial: args.initial,
         ),
@@ -42,11 +42,11 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [AuthScreen]
+/// [AuthPage]
 class AuthRoute extends PageRouteInfo<AuthRouteArgs> {
   AuthRoute({
     Key? key,
-    int initial = 0,
+    AuthPages initial = AuthPages.registration,
     List<PageRouteInfo>? children,
   }) : super(
           AuthRoute.name,
@@ -65,12 +65,12 @@ class AuthRoute extends PageRouteInfo<AuthRouteArgs> {
 class AuthRouteArgs {
   const AuthRouteArgs({
     this.key,
-    this.initial = 0,
+    this.initial = AuthPages.registration,
   });
 
   final Key? key;
 
-  final int initial;
+  final AuthPages initial;
 
   @override
   String toString() {

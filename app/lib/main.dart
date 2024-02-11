@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:teamtask_app/app.dart';
-import 'package:teamtask_app/app_startup.dart';
+import 'app.dart';
+import 'app_startup.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

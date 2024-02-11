@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:teamtask_app/features/auth/pages/auth_page.dart';
 import 'package:teamtask_app/features/onboarding/domain/onboarding.dart';
 import 'package:teamtask_app/features/onboarding/presentation/onboarding_content.dart';
 import 'package:teamtask_app/features/onboarding/presentation/onboarding_dot_indicator.dart';
 import 'package:teamtask_app/router/app_router.dart';
-import 'package:teamtask_app/shared/widgets/app_filled_button.dart';
-import 'package:teamtask_app/shared/widgets/app_text_button.dart';
+import 'package:teamtask_app/widgets/app_filled_button.dart';
+import 'package:teamtask_app/widgets/app_text_button.dart';
 
 const List<Onboarding> data = [
   Onboarding(
@@ -53,14 +54,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _handleOnNavigate() {
     if (_pageIndex < data.length - 1) {
-      // Navigate to next page
       _pageController.animateToPage(
         _pageIndex + 1,
         duration: const Duration(milliseconds: 300),
         curve: Curves.decelerate,
       );
     } else {
-      context.router.push(AuthRoute(initial: 0));
+      context.router.push(AuthRoute(initial: AuthPages.registration));
     }
   }
 

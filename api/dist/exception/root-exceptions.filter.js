@@ -23,6 +23,7 @@ let RootExceptionsFilter = class RootExceptionsFilter {
         const ctx = host.switchToHttp();
         if (exception instanceof ApiHttpException_model_1.ApiHttpException) {
             httpAdapter.reply(ctx.getResponse(), exception.getResponse(), exception.getStatus());
+            return;
         }
         const responseBody = {
             isSuccess: false,
